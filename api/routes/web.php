@@ -24,3 +24,8 @@ $router->get('/clans/new', function() {
     $results = DB::select("SELECT * FROM clans ORDER BY created_at DESC LIMIT 50");
     return $results;
 }); 
+
+$router->get('/viewclan/{id}', function ($id) {
+    $results = DB::select("SELECT * FROM clans WHERE id = $id");
+    return $results;
+});
