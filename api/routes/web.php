@@ -29,3 +29,14 @@ $router->get('/viewclan/{id}', function ($id) {
     $results = DB::select("SELECT * FROM clans WHERE id = $id");
     return $results;
 });
+
+// Sanitize the html out of the description.
+// $router->get('/sanitize', function() {
+//     $results = DB::select("SELECT id, description FROM clans");
+//     foreach($results as $result) {
+//         $sanitized = htmlspecialchars_decode(strip_tags($result->description));
+//         $sanitized = addslashes($sanitized);
+//         DB::update("UPDATE clans SET description = '$sanitized' WHERE id = $result->id");
+//     }
+//     return "done";
+// });
