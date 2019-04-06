@@ -26,4 +26,8 @@ class Kernel extends ConsoleKernel
     {
         //
     }
+    protected $routeMiddleware = [
+        'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
+        'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
+    ];
 }

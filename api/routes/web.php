@@ -30,6 +30,23 @@ $router->get('/viewclan/{id}', function ($id) {
     return $results;
 });
 
+$router->post(
+    '/auth/login', 
+    [
+       'uses' => 'AuthController@authenticate'
+    ]
+);
+
+$router->group(
+    ['middleware' => 'jwt.auth'], 
+    function() use ($router) {
+        $router->get('/users', function() {
+            $users = \App\User::all();
+            return response()->json($users);
+        });
+    }
+);
+
 // Sanitize the html out of the description.
 // $router->get('/sanitize', function() {
 //     $results = DB::select("SELECT id, description FROM clans");
