@@ -11,6 +11,12 @@
 |
 */
 
+use App\Clan;
+use Illuminate\Http\Request;
+use Firebase\JWT\JWT;
+use App\Closure;
+use App\User;
+
 $router->get('/', function () use ($router) {
     return ("Hello!");
 });
@@ -25,9 +31,12 @@ $router->get('/clans/new', function() {
     return $results;
 }); 
 
-$router->get('/viewclan/{id}', function ($id) {
-    $results = DB::select("SELECT * FROM clans WHERE id = $id");
-    return $results;
+$router->get('/clan/{id}', function ($id) {
+    return Clan::byId($id);
+});
+
+$router->get('/userclan/{id}', function ($id) {
+    return Clan::byUserId($id);
 });
 
 $router->post(
@@ -44,6 +53,11 @@ $router->group(
             $users = \App\User::all();
             return response()->json($users);
         });
+
+        $router->get('/currentuser/{id}',['middleware' => 'clanowner', function (Request $request, $id) {
+            
+            return 'You made it in!';
+        }]);
     }
 );
 

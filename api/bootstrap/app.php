@@ -64,6 +64,7 @@ $app->singleton(
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
+    'clanowner' => App\Http\Middleware\ClanOwner::class,
 ]);
 
 /*
