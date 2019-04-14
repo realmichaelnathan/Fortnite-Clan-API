@@ -18,38 +18,25 @@ use App\Closure;
 use App\User;
 use Illuminate\Support\Facades\Input;
 
-$router->get('/', function () use ($router) {
-    return ("Hello!");
-});
+// General Page Routes
+$router->get('/clans', 'PagesController@index');
+$router->get('/clans/new', 'PagesController@newclans'); 
+$router->get('/viewclan/{id}', 'PagesController@viewclan');
 
-$router->get('/clans', function() {
-    $results = DB::select("SELECT * FROM clans LIMIT 50");
-    return $results;
-});
-
-$router->get('/clans/new', function() {
-    $results = DB::select("SELECT * FROM clans ORDER BY created_at DESC LIMIT 50");
-    return $results;
-}); 
-
-$router->get('/clan/{id}', function ($id) {
-    return Clan::whereId($id)->get();
-});
-
-$router->get('/userclan/{id}', function ($id) {
-    return Clan::whereUserid($id)->first();
-});
-
+// Authentication Routes
+$router->post('/auth/register', 'UserController@register');
 $router->post('/auth/login', 'AuthController@authenticate');
 
-//  PROTECTED ROUTES. YOU MUST PASS IN A TOKEN TO ACCESS THESE ROUTES.
-//  FOR EXAMPLE 'token' = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsdW1lbi1qd3QiLCJzdWIiOjE'
+// Protected Routes. You must pass in a token to access these.
 $router->group(
     ['middleware' => 'jwt.auth'], 
     function() use ($router) {
+        $router->post('/addclan', 'ClansController@create');
+        $router->get('/userclan', 'ClansController@userclan');
+
         $router->get('/editclan', 'ClansController@index');
         $router->post('/editclan','ClansController@update');
-        //$router->delete('/editclan', 'ClansController@destroy');
+        $router->delete('/editclan', 'ClansController@destroy');
     }
 );
 
