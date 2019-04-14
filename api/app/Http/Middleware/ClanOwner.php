@@ -18,13 +18,14 @@ class ClanOwner
     {
         $userid = $request->auth->id;
         $clanid = $request->id;
-
-        $clanowner = Clan::find($clanid)->userid;
+        $clan = Clan::find($clanid);
+        $clanowner = $clan->userid;
 
         // $request->status = "User: $userid, Clan Owner: $clanowner";
         if ($userid != $clanowner) {
             return 'Error: Logged in user does not own this clan.';
         } else {
+            $request->clan = $clan;
             return $next($request);
         }
         

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Firebase\JWT\JWT;
 use App\Closure;
 use App\User;
+use Illuminate\Support\Facades\Input;
 
 $router->get('/', function () use ($router) {
     return ("Hello!");
@@ -32,32 +33,23 @@ $router->get('/clans/new', function() {
 }); 
 
 $router->get('/clan/{id}', function ($id) {
-    return Clan::byId($id);
+    return Clan::whereId($id)->get();
 });
 
 $router->get('/userclan/{id}', function ($id) {
-    return Clan::byUserId($id);
+    return Clan::whereUserid($id)->first();
 });
 
-$router->post(
-    '/auth/login', 
-    [
-       'uses' => 'AuthController@authenticate'
-    ]
-);
+$router->post('/auth/login', 'AuthController@authenticate');
 
+//  PROTECTED ROUTES. YOU MUST PASS IN A TOKEN TO ACCESS THESE ROUTES.
+//  FOR EXAMPLE 'token' = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsdW1lbi1qd3QiLCJzdWIiOjE'
 $router->group(
     ['middleware' => 'jwt.auth'], 
     function() use ($router) {
-        $router->get('/users', function() {
-            $users = \App\User::all();
-            return response()->json($users);
-        });
-
-        $router->get('/currentuser/{id}',['middleware' => 'clanowner', function (Request $request, $id) {
-            
-            return 'You made it in!';
-        }]);
+        $router->get('/editclan', 'ClansController@index');
+        $router->post('/editclan','ClansController@update');
+        //$router->delete('/editclan', 'ClansController@destroy');
     }
 );
 
