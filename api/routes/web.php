@@ -38,6 +38,9 @@ $router->group(
         $router->get('/editclan', 'ClansController@index');
         $router->post('/editclan','ClansController@update');
         $router->delete('/editclan', 'ClansController@destroy');
+
+        $router->get('/getuser', 'UserController@getuser');
+        $router->delete('/deleteuser', 'UserController@destroy');
     }
 );
 
