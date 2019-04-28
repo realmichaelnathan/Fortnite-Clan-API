@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Input;
 $router->get('/clans', 'PagesController@index');
 $router->get('/clans/new', 'PagesController@newclans'); 
 $router->get('/viewclan/{id}', 'PagesController@viewclan');
-$router->get('/search/{term}', 'PagesController@search');
+$router->get('/search/{searchTerm}', 'PagesController@search');
 
 // Authentication Routes
 $router->post('/auth/register', 'UserController@register');
