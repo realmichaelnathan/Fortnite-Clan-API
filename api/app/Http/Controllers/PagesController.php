@@ -16,22 +16,6 @@ class PagesController extends Controller
     }
 
     //
-    public function index() {
-        return Clan::all();
-    }
-
-    public function newclans() {
-        return Clan::orderBy('created_at', 'desc')->get();
-    }
-
-    public function viewclan($id) {
-        $clan = Clan::whereId($id)->get();
-        if (!$clan) {
-            return response('',404);
-        } else {
-            return $clan;
-        }
-    }
 
     public function search($searchTerm) {
         $results = Clan::where('name', 'LIKE', "%$searchTerm%")->take(5)->get();

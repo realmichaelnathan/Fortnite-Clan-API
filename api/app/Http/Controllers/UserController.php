@@ -34,19 +34,4 @@ class UserController extends Controller
         $res['data'] = $user;
         return response($res);
     }
-
-    public function getuser(Request $request) {
-        return $request->auth;
-    }
-    
-    public function destroy(Request $request) {
-        $user = User::whereId($request->auth->id)->first();
-
-        if (!$user) {
-            return response('', 404);
-        } else {
-            $user->delete();
-            return 'User deleted.';
-        }
-    }
 }
