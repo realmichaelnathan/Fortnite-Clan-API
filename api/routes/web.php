@@ -14,10 +14,13 @@
 // General Page Routes
 $router->get('/clans', 'ClansController@index');
 $router->get('/clan/{id}', 'ClansController@show');
+
+$router->get('/users', 'UserController@index');
+$router->get('/user/{id}', 'UserController@show');
 $router->get('/search/{searchTerm}', 'PagesController@search');
 
 // Authentication Routes
-$router->post('/auth/register', 'UserController@register');
+$router->post('/auth/register', 'UserController@store');
 $router->post('/auth/login', 'AuthController@authenticate');
 
 // Protected Routes. You must pass in a token to access these.

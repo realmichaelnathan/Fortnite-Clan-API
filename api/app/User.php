@@ -29,4 +29,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password', 'remember_token','email_verified_at','updated_at'
     ];
+
+    public function clan() {
+        return $this->hasOne('App\Clan', 'userid');
+    }
+
+    public function vote() {
+        return $this->hasOne('App\Vote');
+    }
 }
