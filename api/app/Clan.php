@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Clan extends Model {
 
     public function owner() {
-        return $this->belongsTo('App\User', 'userid');
+        return $this->hasOne('App\User', 'userid');
     }
 
 }
