@@ -13,7 +13,7 @@
 
 // General Page Routes
 $router->get('/clans', 'ClansController@index');
-
+$router->get('/clan/{$id}', 'ClansController@show');
 $router->get('/search/{searchTerm}', 'PagesController@search');
 
 // Authentication Routes

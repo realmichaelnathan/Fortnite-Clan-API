@@ -24,4 +24,8 @@ class ClansController extends Controller
         return Clan::orderBy('created_at', 'desc')->get();
     }
 
+    public function show($id) {
+        return Clan::find($id);
+    }
+
 }
