@@ -25,7 +25,9 @@ class ClansController extends Controller
     }
 
     public function show($id) {
-        return Clan::find($id);
+        $clan = Clan::find($id);
+        $clan->owner = $clan->owner();
+        return $clan;
     }
 
 }
