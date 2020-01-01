@@ -25,9 +25,12 @@ class ClansController extends Controller
     }
 
     public function show($id) {
-        $clan = Clan::find($id);
-        $clan->owner = $clan->owner();
+        $clan =  Clan::find($id);
+        $clan->owner;
+        $clan->votes;
+        $clan->total_votes = $clan->total_votes();
         return $clan;
+
     }
 
 }

@@ -11,7 +11,20 @@ class UserController extends Controller
      *
      * @param $request Request
      */
-    public function register(Request $request)
+
+
+    public function index() {
+        return User::orderBy('created_at', 'desc')->get();
+    }
+
+    public function show($id) {
+        $user =  User::find($id);
+        $user->clan;
+        return $user;
+
+    }
+
+    public function store(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|email|unique:users',
