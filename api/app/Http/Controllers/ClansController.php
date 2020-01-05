@@ -21,7 +21,7 @@ class ClansController extends Controller
     //
 
     public function index() {
-        return Clan::orderBy('created_at', 'desc')->get();
+        return Clan::orderBy('created_at', 'desc')->with('owner')->withCount('votes')->get();
     }
 
     public function show($id) {
