@@ -12,11 +12,6 @@
 */
 
 // General Page Routes
-$router->get('/clans', 'ClansController@index');
-$router->get('/clan/{id}', 'ClansController@show');
-
-$router->get('/users', 'UserController@index');
-$router->get('/user/{id}', 'UserController@show');
 $router->get('/search/{searchTerm}', 'PagesController@search');
 
 // Authentication Routes
@@ -27,6 +22,11 @@ $router->post('/auth/login', 'AuthController@authenticate');
 $router->group(
     ['middleware' => 'jwt.auth'], 
     function() use ($router) {
-        $router->post('/example', 'Example@example');
+        $router->get('/users', 'UserController@index');
+        $router->get('/user/{id}', 'UserController@show');
+
+        $router->get('/clans', 'ClansController@index');
+        $router->get('/clan/{id}', 'ClansController@show');
+
     }
 );

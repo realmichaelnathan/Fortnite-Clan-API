@@ -29,6 +29,13 @@ class JwtMiddleware
             ], 400);
         }
         $user = User::find($credentials->sub);
+
+        // Check to see if user is Admin.
+        if (!$user->hasRole('admin')) {
+            return response()->json([
+                'error' => 'User does not have access.'
+            ], 401);
+        }
         // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $user;
         return $next($request);

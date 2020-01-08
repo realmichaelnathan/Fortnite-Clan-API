@@ -37,4 +37,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function vote() {
         return $this->hasOne('App\Vote');
     }
+
+    public function roles() {
+        return $this->belongsToMany('App\Role', 'roles_users');
+    }
+
+    public function hasRole($role) {
+        return null !== $this->roles->where('name', $role)->first();
+    }
 }
